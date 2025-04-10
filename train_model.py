@@ -10,7 +10,7 @@ from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score
 
 # prepare data
-input_dir = 'C:/Users/jaygo/OneDrive/Desktop/Jay Stuff/Parking-Detection/clf-data/clf-data'
+input_dir = 'Enter your path for clf-data'
 categories = ['empty', 'not_empty']
 
 data = []
