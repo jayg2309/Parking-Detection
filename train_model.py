@@ -9,8 +9,10 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score
 
+
+
 # prepare data
-input_dir = 'Enter your path for clf-data'
+input_dir = 'C:/Users/jaygo/OneDrive/Desktop/Jay Stuff/Parking-Detection/clf-data/clf-data'
 categories = ['empty', 'not_empty']
 
 data = []
@@ -72,3 +74,26 @@ for mean_score, param in zip(means, params):
 print("\nBest Parameters:", grid_search.best_params_)
 print(f"Best Cross-validation Accuracy: {grid_search.best_score_*100:.2f}%")
 print(f"Test Set Accuracy: {accuracy_score(y_test, y_prediction)*100:.2f}%")
+
+
+# Plotting a Heatmap to show Accuracy for C vs gamma parameters 
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+
+
+# Create a DataFrame from the grid search results
+results = pd.DataFrame(grid_search.cv_results_['params'])
+results['mean_test_score'] = grid_search.cv_results_['mean_test_score']
+
+# Pivot the table to format it for a heatmap
+heatmap_data = results.pivot(index='gamma', columns='C', values='mean_test_score')
+
+# Plot heatmap
+plt.figure(figsize=(8, 6))
+sns.heatmap(heatmap_data, annot=True, fmt=".2f", cmap="YlGnBu")
+plt.title("Grid Search Accuracy Heatmap")
+plt.xlabel("C")
+plt.ylabel("Gamma")
+plt.show()
